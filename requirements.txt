@@ -12,3 +12,4 @@ openai
 channels
 channels-redis
 django-environ
+python-dotenv
