@@ -1,0 +1,14 @@
+Django>=4.2
+djangorestframework
+djangorestframework-simplejwt
+psycopg2-binary
+celery
+redis
+django-cors-headers
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+openai
+channels
+channels-redis
+django-environ
