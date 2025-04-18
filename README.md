@@ -37,4 +37,6 @@
 
 18. As a student, I want to receive badges for completing challenges for my profile. (Firebase Cloud Messaging)
 
-19. As a student, I want to find nearby study rooms or cafes to study in. (Google Maps API / Google Places API)
+19. As a student, I want to find nearby study rooms or cafes to study in. (Google Maps API / Google Places API) (Samar)
+
+20. Log in Page (Samar)
