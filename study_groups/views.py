@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def studygroup_home(request):
+    return render(request, 'study_groups/study_groups.html')
