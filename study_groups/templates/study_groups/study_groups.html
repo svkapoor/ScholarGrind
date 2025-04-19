@@ -24,8 +24,8 @@
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {% for group in groups %}
-            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-300">
-                <div class="p-6">
+            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
+                <div class="p-6 flex-grow">
                     <h3 class="text-lg font-medium text-gray-900 mb-2">{{ group.name }}</h3>
                     <p class="text-gray-600 mb-4">{{ group.description }}</p>
                     
@@ -46,7 +46,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="bg-gray-50 px-6 py-4">
+                <div class="bg-gray-50 px-6 py-4 mt-auto">
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-500">
                             {{ group.members.count }}/{{ group.max_members }} members
@@ -56,9 +56,13 @@
                                     class="inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 View Location
                             </button>
-                            <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Join Group
-                            </button>
+                            <form method="post" action="{% url 'study_groups:join' group.id %}" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" 
+                                        class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Join Group
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -111,11 +115,11 @@
 <script>
 const locationMaps = {
     'library': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4757532914077!2d-84.3982170240879!3d33.77436747326295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f504620c8d89ad%3A0x6b68813b275ea210!2sPrice%20Gilbert%20Memorial%20Library!5e1!3m2!1sen!2sus!4v1745095299780!5m2!1sen!2sus',
-    'crossland': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4757532914077!2d-84.3982170240879!3d33.77436747326295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f504620c8d89ad%3A0x6b68813b275ea210!2sCrossland%20Towers!5e1!3m2!1sen!2sus!4v1745095299780!5m2!1sen!2sus',
-    'clough': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4757532914077!2d-84.3982170240879!3d33.77436747326295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f504620c8d89ad%3A0x6b68813b275ea210!2sClough%20Undergraduate%20Learning%20Commons!5e1!3m2!1sen!2sus!4v1745095299780!5m2!1sen!2sus',
-    'student': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4757532914077!2d-84.3982170240879!3d33.77436747326295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f504620c8d89ad%3A0x6b68813b275ea210!2sStudent%20Center!5e1!3m2!1sen!2sus!4v1745095299780!5m2!1sen!2sus',
-    'klaus': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4757532914077!2d-84.3982170240879!3d33.77436747326295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f504620c8d89ad%3A0x6b68813b275ea210!2sKlaus%20Advanced%20Computing%20Building!5e1!3m2!1sen!2sus!4v1745095299780!5m2!1sen!2sus',
-    'scheller': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4757532914077!2d-84.3982170240879!3d33.77436747326295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f504620c8d89ad%3A0x6b68813b275ea210!2sScheller%20College%20of%20Business!5e1!3m2!1sen!2sus!4v1745095299780!5m2!1sen!2sus'
+    'crossland': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.4870253422732!2d-84.39760312408795!3d33.77409207326302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5046214c464db%3A0x773097177cbff905!2sCrosland%20Tower!5e1!3m2!1sen!2sus!4v1745101040841!5m2!1sen!2sus',
+    'clough': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.453127085684!2d-84.39898972408787!3d33.77492027326262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f50489e24c4cc7%3A0x2f07c28c3abda31b!2sClough%20Undergraduate%20Learning%20Commons!5e1!3m2!1sen!2sus!4v1745101114441!5m2!1sen!2sus',
+    'student': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.489313304947!2d-84.4015917240879!3d33.774036173263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f50489a73dcb65%3A0xe5b99fb6b844e7bb!2sJohn%20Lewis%20Student%20Center!5e1!3m2!1sen!2sus!4v1745101140341!5m2!1sen!2sus',
+    'klaus': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.3668064227863!2d-84.39839002408782!3d33.77702917326178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b781ec0ab42ea5%3A0x16eec927f37b40ec!2sKlaus%20Advanced%20Computing%20Building!5e1!3m2!1sen!2sus!4v1745101062575!5m2!1sen!2sus',
+    'scheller': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.3917015127095!2d-84.3903156240878!3d33.77642097326215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f504665e019e31%3A0x20191312255ea46f!2sScheller%20College%20of%20Business!5e1!3m2!1sen!2sus!4v1745101171558!5m2!1sen!2sus'
 };
 
 function showMap(location) {
