@@ -46,11 +46,6 @@ INSTALLED_APPS = [
     'main',
     'users',
     'study_groups',
-    'quizzes',
-    'study_plans',
-    'reminders',
-    'ai_tools',
-    'productivity',
     'accounts'
 ]
 
